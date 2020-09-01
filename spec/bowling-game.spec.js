@@ -27,4 +27,44 @@ describe('Bowling Game', () => {
     gameRolls(10, 2);
     expect(bowlingGame.score()).toEqual(30);
   })
+
+  describe('With Spare', () => {
+    var rollSpare;
+  
+    beforeEach(function() {
+      rollSpare = () => {
+        bowlingGame.roll(4);
+        bowlingGame.roll(6);
+      }
+    });
+
+    it('should score 20 for a spare', function() {
+      rollSpare();
+      bowlingGame.roll(5);
+      bowlingGame.roll(0);
+      gameRolls(16, 0);
+      expect(bowlingGame.score()).toEqual(20);
+    });
+
+    it('should score 34 for two spares', function() {
+      rollSpare();
+      bowlingGame.roll(5);
+      bowlingGame.roll(0);
+      rollSpare();
+      bowlingGame.roll(2);
+      bowlingGame.roll(0);
+      gameRolls(12, 0);
+      expect(bowlingGame.score()).toEqual(34);
+    });
+
+    it('should score 28 for two consecutive spares', function() {
+      rollSpare();
+      rollSpare();
+      bowlingGame.roll(2);
+      bowlingGame.roll(0);
+      gameRolls(14, 0);
+      expect(bowlingGame.score()).toEqual(28);
+    });
+  });
+  
 })
