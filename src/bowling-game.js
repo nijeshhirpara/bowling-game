@@ -8,7 +8,11 @@ class BowlingGame {
   }
 
   score() {
-    return 0
+    let score = 0;
+    this.rolls.forEach(pins => {
+      score += pins;
+    })
+    return score;
   }
 }
 
