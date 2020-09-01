@@ -28,7 +28,7 @@ describe('Bowling Game', () => {
     expect(bowlingGame.score()).toEqual(30);
   })
 
-  describe('with Spare', () => {
+  describe('with Spare(4,6)', () => {
     var rollSpare;
   
     beforeEach(function() {
@@ -65,9 +65,16 @@ describe('Bowling Game', () => {
       gameRolls(14, 0);
       expect(bowlingGame.score()).toEqual(28);
     });
+
+    it('should score 12, If one has a spare only for the last roll', function() {
+      gameRolls(18, 0);
+      rollSpare();
+      bowlingGame.roll(2);
+      expect(bowlingGame.score()).toEqual(12);
+    });
   });
 
-  describe('with Strike', () => {
+  describe('with Strike(10)', () => {
     var rollStrike;
   
     beforeEach(function() {
@@ -102,6 +109,22 @@ describe('Bowling Game', () => {
       bowlingGame.roll(2);
       gameRolls(16, 0);
       expect(bowlingGame.score()).toEqual(40);
+    });
+
+    it('should score 300, If one has a strike for every roll', function() {
+      for(let i=0; i<12; i++) {
+        rollStrike();
+      }
+      gameRolls(8, 0);
+      expect(bowlingGame.score()).toEqual(300);
+    });
+
+    it('should score 14, If one has a strike only for the last roll', function() {
+      gameRolls(18, 0);
+      rollStrike();
+      bowlingGame.roll(2);
+      bowlingGame.roll(2);
+      expect(bowlingGame.score()).toEqual(14);
     });
   });
   
