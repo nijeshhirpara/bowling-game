@@ -25,4 +25,7 @@ Their score is 28. So that's (10 + 5 + 4) + ( 5 + 4)
 
 * There are 10 pins in a frame
 * There are 10 frames in a match
-* Don't worry about validating the number of rolls in a frame
+* In the last frame, if the bowler bowls a spare, they get another bowl. The score of this frame is the sum of the three bowls.
+* In the last frame, if the bowler bowls a strike, they get another 2 bowls. The score of this frame is the sum of the three bowls
+* If one has a strike for every roll, their score is 300
+
