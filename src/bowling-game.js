@@ -19,18 +19,18 @@ class BowlingGame {
       if(isStrike(currentRoll)) {
         // The scoring of a strike is the sum of the number of pins knocked down 
         // plus the number of pins knocked down in the next two bowls.
-        score += 10 + this.rolls[currentRoll + 1] + this.rolls[currentRoll + 2];
+        score += 10 + this.getPins(currentRoll + 1) + this.getPins(currentRoll + 2);
         currentRoll++;
       }
       // check if it's a spare
       else if(isSpare(currentRoll)) {
         // The scoring of a spare is the sum of the number of pins knocked down 
         // plus the number of pins knocked down in the next bowl
-        score += 10 + this.rolls[currentRoll + 2];
+        score += 10 + this.getPins(currentRoll + 2);
         currentRoll += 2;
       } else {
         // Simply add the score of two frames
-        score += this.rolls[currentRoll] + this.rolls[currentRoll + 1];
+        score += this.getPins(currentRoll) + this.getPins(currentRoll + 1);
         currentRoll += 2;
       }
     }
@@ -46,6 +46,11 @@ class BowlingGame {
     function isStrike(rolIndex) {
       return game.rolls[rolIndex] === 10
     }
+  }
+
+  // get Roll pins at given index if any
+  getPins(rolIndex) {
+    return typeof this.rolls[rolIndex] !== 'undefined'? this.rolls[rolIndex] : 0;
   }
 }
 
