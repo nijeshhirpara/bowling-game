@@ -12,21 +12,26 @@ class BowlingGame {
   score() {
     let game = this;
     let score = 0;
-    let roll_1_index = 0;
-    let roll_2_index = 1;
+    let currentRoll = 0;
 
     for(let frame = 0; frame < 10; frame++) {
-      roll_1_index = frame * 2;
-      roll_2_index = frame * 2 + 1;
-
+      // check if it's a strike
+      if(isStrike(currentRoll)) {
+        // The scoring of a strike is the sum of the number of pins knocked down 
+        // plus the number of pins knocked down in the next two bowls.
+        score += 10 + this.rolls[currentRoll + 1] + this.rolls[currentRoll + 2];
+        currentRoll++;
+      }
       // check if it's a spare
-      if(isSpare(roll_1_index)) {
+      else if(isSpare(currentRoll)) {
         // The scoring of a spare is the sum of the number of pins knocked down 
         // plus the number of pins knocked down in the next bowl
-        score += 10 + this.rolls[roll_2_index + 1];
+        score += 10 + this.rolls[currentRoll + 2];
+        currentRoll += 2;
       } else {
         // Simply add the score of two frames
-        score += this.rolls[roll_1_index] + this.rolls[roll_2_index];
+        score += this.rolls[currentRoll] + this.rolls[currentRoll + 1];
+        currentRoll += 2;
       }
     }
 
@@ -35,6 +40,11 @@ class BowlingGame {
     // If in 2 tries, the bowler knocks down all the pins, it is a spare
     function isSpare(rolIndex) {
       return game.rolls[rolIndex] + game.rolls[rolIndex + 1] === 10
+    }
+
+    // If in one try, the bowler knocks down all the pins, it is a strike. 
+    function isStrike(rolIndex) {
+      return game.rolls[rolIndex] === 10
     }
   }
 }
